@@ -4,7 +4,9 @@
     }
 </script>
 
-
+<svelte:head>
+    <title>XSSChat</title>
+</svelte:head>
 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 text-center">
     <form class="space-y-6" action="#">
         <h1 class="text-5xl tracking-wide font-black text-orange-500 my-8">XSSChat</h1>
