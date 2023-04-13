@@ -43,7 +43,7 @@
 
         <button
             type="submit"
-            on:click|preventDefault|once={submit}
+            on:click|preventDefault={submit}
             class="w-full rounded-lg bg-orange-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
             >Join Room</button
         >
