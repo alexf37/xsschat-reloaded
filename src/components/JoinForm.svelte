@@ -25,7 +25,7 @@
             id="code"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
             placeholder="Room Code"
-            value={code ?? ""}
+            bind:value={code}
             required
         />
 
@@ -34,7 +34,7 @@
             name="name"
             id="name"
             placeholder="Name"
-            value={username ?? ""}
+            bind:value={username}
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
         />
 
