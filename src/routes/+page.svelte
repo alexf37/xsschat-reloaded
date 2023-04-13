@@ -17,5 +17,5 @@
 </svelte:head>
 
 <main class="mx-auto flex h-screen w-11/12 flex-col items-center justify-center">
-    <JoinForm />
+    <JoinForm socket={socket}/>
 </main>
