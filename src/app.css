@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Inter var';
+	font-style: block;
+	font-weight: 100 900;
+	font-display: block;
+	src: url('/font/Inter-roman.var.woff2') format('woff2');
+	font-named-instance: 'Regular';
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
