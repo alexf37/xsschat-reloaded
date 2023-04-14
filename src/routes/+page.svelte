@@ -3,7 +3,7 @@
     import { writable } from "svelte/store";
     import { io } from "socket.io-client";
     import { browser } from "$app/environment";
-    import JoinForm from "../components/JoinForm.svelte";
+    import JoinForm from "$components/JoinForm.svelte";
 
     const socket = io("https://xsschat.com");
     const messages = writable([]);
@@ -13,9 +13,9 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <title>XSSChat</title>
 </svelte:head>
 
 <main class="mx-auto flex h-screen w-11/12 flex-col items-center justify-center">
-    <JoinForm socket={socket}/>
+    <JoinForm {socket} />
 </main>
