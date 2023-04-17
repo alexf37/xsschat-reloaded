@@ -1,14 +1,13 @@
 <script lang="ts">
-    import { io } from "socket.io-client";
-    export let socket = io("https://xsschat.com");
-    let code: string;
-    let username: string;
+    import { goto } from "$app/navigation";
+    import { usernameStore } from "$lib/stores/usernameStore";
+
+    let code: string = "";
+    let username: string = "";
     function submit(e: Event) {
-        socket.emit("join", { room: code, name: username });
+        usernameStore.set(username || "Anonymous");
+        goto(`/r/${code || "global"}`);
     }
-    socket.on("join", function (name) {
-        console.log(name);
-    });
 </script>
 
 <div
@@ -39,7 +38,7 @@
         <button
             type="submit"
             on:click|preventDefault={submit}
-            class="w-full rounded-lg bg-orange-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+            class="w-full rounded-lg bg-orange-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-800"
             >Join Room</button
         >
     </form>
