@@ -10,7 +10,7 @@
     export let data = { room: "test" };
     let code: string = data.room;
     let username: string = $usernameStore;
-    const chats: Chat[] = [];
+    let chats: Chat[] = [];
 
     let socket = io("https://xsschat.com");
     socket.emit("join", { room: code, name: username });
@@ -21,11 +21,17 @@
 
     socket.on("message", function (data) {
         if (data.type === "script") return;
-        chats.push({
-            sender: data.name,
-            chat: data.value,
-            time: new Date().toLocaleTimeString(),
-        });
+        chats = [
+            ...chats,
+            {
+                sender: data.name,
+                chat: data.value,
+                time: new Date().toLocaleTimeString(),
+            },
+        ];
+        console.log(
+            `received: ${data.name} said ${data.value} at ${new Date().toLocaleTimeString()}`
+        );
     });
 
     function emit(chat: string) {
