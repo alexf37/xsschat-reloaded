@@ -28,6 +28,4 @@
     <title>XSSChat</title>
 </svelte:head>
 
-<div class="w-full">
-    <ChatBar room={code} name={$usernameStore} {emit} />
-</div>
+<ChatBar room={code} name={$usernameStore} {emit} />
