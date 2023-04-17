@@ -26,7 +26,7 @@
             {
                 sender: data.name,
                 chat: data.value,
-                time: new Date().toLocaleTimeString(),
+                time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
             },
         ];
     });
