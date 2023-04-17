@@ -29,9 +29,6 @@
                 time: new Date().toLocaleTimeString(),
             },
         ];
-        console.log(
-            `received: ${data.name} said ${data.value} at ${new Date().toLocaleTimeString()}`
-        );
     });
 
     function emit(chat: string) {
