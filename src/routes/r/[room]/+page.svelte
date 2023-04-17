@@ -1,4 +1,5 @@
 <script lang="ts">
+    import RoomContainer from "$src/lib/components/RoomContainer.svelte";
     import ChatBar from "$src/lib/components/ChatBar.svelte";
     import { usernameStore } from "$lib/stores/usernameStore";
     import { io } from "socket.io-client";
@@ -27,5 +28,6 @@
 <svelte:head>
     <title>XSSChat</title>
 </svelte:head>
-
-<ChatBar room={code} name={$usernameStore} {emit} />
+<RoomContainer>
+    <ChatBar {emit} />
+</RoomContainer>
