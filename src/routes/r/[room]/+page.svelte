@@ -1,22 +1,33 @@
 <script lang="ts">
+    import ChatBar from "$src/lib/components/ChatBar.svelte";
+    import { usernameStore } from "$lib/stores/usernameStore";
     import { io } from "socket.io-client";
-    export let socket = io("https://xsschat.com");
-    let code: string;
-    let username: string;
-    function submit(e: Event) {
-        socket.emit("join", { room: code, name: username });
-    }
+
+    export let data = { room: "test" };
+    let code: string = data.room;
+    let username: string = $usernameStore;
+
+    let socket = io("https://xsschat.com");
+    socket.emit("join", { room: code, name: username });
+
     socket.on("join", function (name) {
         console.log(name);
     });
+
+    socket.on("message", function (data) {
+        if (data.type === "script") return;
+        console.log(`${data.name}: ${data.value}`);
+    });
+
+    function emit(chat: string) {
+        socket.emit("message", { type: "chat", name: username, value: chat });
+    }
 </script>
 
 <svelte:head>
     <title>XSSChat</title>
 </svelte:head>
 
-<div
-    class="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-6 text-center shadow dark:border-gray-700 dark:bg-gray-800 md:p-8"
->
-    room page
+<div class="w-full">
+    <ChatBar room={code} name={$usernameStore} {emit} />
 </div>
