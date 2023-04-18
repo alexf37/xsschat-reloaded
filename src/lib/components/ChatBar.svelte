@@ -12,6 +12,7 @@
     });
 
     function submit() {
+        if (!chat) return;
         console.log("submit: " + chat);
         emit(chat);
         chat = "";
