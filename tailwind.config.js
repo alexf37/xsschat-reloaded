@@ -23,5 +23,10 @@ export default {
       },
     },
   },
+  safelist: [
+    {
+      pattern: /.+/,
+    },
+  ],
   plugins: [require('tailwind-scrollbar-hide')]
 };
