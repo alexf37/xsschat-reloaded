@@ -19,7 +19,7 @@
     }
 </script>
 
-<UIBox class="mt-auto w-full">
+<UIBox class="z-50 mt-auto w-full">
     <form class="flex flex-row items-center justify-between gap-4" on:submit={submit}>
         <label for="chat-box" class="sr-only">Chat Input</label>
         <input
