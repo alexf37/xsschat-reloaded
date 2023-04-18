@@ -1,6 +1,5 @@
 <script lang="ts">
     import UIBox from "./UIBox.svelte";
-    import type { Chat } from "$src/types/custom";
 
     export let chat = {
         sender: "",
