@@ -46,7 +46,6 @@
                 ["{", "}"],
                 ["<", ">"],
                 ['"', '"'],
-                ["'", "'"],
             ];
             if (e.code == "ArrowUp") {
                 e.preventDefault();
@@ -104,6 +103,8 @@
             bind:this={chatbar}
             class="w-full flex-1 rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-gray-500 focus:ring-gray-400"
             placeholder="XSSChat"
+            autocomplete="off"
+            autocorrect="off"
             autofocus
         />
         <button
