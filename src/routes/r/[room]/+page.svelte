@@ -47,7 +47,7 @@
     <title>XSSChat</title>
 </svelte:head>
 <RoomContainer>
-    <div class="flex-column flex h-full w-full gap-4">
+    <div class="flex-column flex w-full gap-4">
         {#each chats as chat}
             {#if chat.sender === username}
                 <SentChat {chat} />
