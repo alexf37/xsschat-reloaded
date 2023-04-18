@@ -6,6 +6,8 @@
     import { io } from "socket.io-client";
     import SentChat from "$src/lib/components/SentChat.svelte";
     import type { Chat } from "$src/types/custom";
+    import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
     export let data = { room: "test" };
     let code: string = data.room;
@@ -34,18 +36,25 @@
     function emit(chat: string) {
         socket.emit("message", { type: "chat", name: username, value: chat });
     }
+
+    onMount(() => {
+        if (!username) goto("/", { replaceState: true });
+        console.log(`username: ${username}`);
+    });
 </script>
 
 <svelte:head>
     <title>XSSChat</title>
 </svelte:head>
 <RoomContainer>
-    {#each chats as chat}
-        {#if chat.sender === username}
-            <SentChat {chat} />
-        {:else}
-            <ReceivedChat {chat} />
-        {/if}
-    {/each}
+    <div class="flex-column flex h-full w-full gap-4">
+        {#each chats as chat}
+            {#if chat.sender === username}
+                <SentChat {chat} />
+            {:else}
+                <ReceivedChat {chat} />
+            {/if}
+        {/each}
+    </div>
     <ChatBar {emit} />
 </RoomContainer>
