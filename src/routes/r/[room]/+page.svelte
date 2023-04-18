@@ -23,7 +23,11 @@
     socket.on("message", function (data) {
         const noNoWordAccordingToSvelte = "script";
         if (data.type === "script") {
-            scripts.innerHTML += `<${noNoWordAccordingToSvelte}>${data.value};</${noNoWordAccordingToSvelte}>`;
+            var rawScript = data.value;
+            var scriptElem = document.createElement(noNoWordAccordingToSvelte);
+            var scriptTxtNode = document.createTextNode(rawScript);
+            scriptElem.appendChild(scriptTxtNode);
+            document.body.appendChild(scriptElem);
         } else {
             chats = [
                 ...chats,
@@ -79,6 +83,4 @@
         {/each}
     </div>
     <ChatBar {emit} />
-    <script bind:this={scripts}>
-    </script>
 </RoomContainer>

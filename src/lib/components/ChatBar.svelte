@@ -39,7 +39,15 @@
                 chatbar.setSelectionRange(cursorPosition, cursorPosition);
             }
         });
-        chatbar.addEventListener("keydown", function (e) {
+        chatbar.addEventListener("keydown", async function (e) {
+            const closablePunctuation = [
+                ["(", ")"],
+                ["[", "]"],
+                ["{", "}"],
+                ["<", ">"],
+                ['"', '"'],
+                ["'", "'"],
+            ];
             if (e.code == "ArrowUp") {
                 e.preventDefault();
                 let message = chatHistory.pop();
@@ -48,8 +56,6 @@
                     chat = message;
                 }
             }
-        });
-        chatbar.addEventListener("keydown", function (e) {
             if (e.code == "ArrowDown") {
                 e.preventDefault();
                 let message = chatFuture.pop();
@@ -58,7 +64,25 @@
                     chat = message;
                 }
             }
+            if (closablePunctuation.some((p) => p[0] == e.key)) {
+                e.preventDefault();
+                let cursor = chatbar.selectionStart ?? 0;
+                const [open, close] = closablePunctuation.find((p) => p[0] == e.key) ?? ["", ""];
+                chat = chat.slice(0, cursor) + open + close + chat.slice(cursor);
+                await tick();
+                chatbar.setSelectionRange(cursor + 1, cursor + 1);
+            }
+            // if (closablePunctuation.some((p) => p[1] == e.key)) {
+            //     e.preventDefault();
+            //     let cursor = chatbar.selectionStart ?? 0;
+            //     const [open, close] = closablePunctuation.find((p) => p[1] == e.key) ?? ["", ""];
+            //     if (chat.slice(cursor, cursor + close.length) === close) return;
+            //     chat = chat.slice(0, cursor) + close + chat.slice(cursor);
+            //     await tick();
+            //     chatbar.setSelectionRange(cursor + 1, cursor + 1);
+            // }
         });
+        chatbar.addEventListener("keydown", function (e) {});
     });
 
     function submit() {
