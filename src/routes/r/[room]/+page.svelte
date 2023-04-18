@@ -33,6 +33,18 @@
         ];
     });
 
+    const scrollToBottom = (node: HTMLElement, dependency: unknown) => {
+        dependency = dependency;
+        const scroll = () =>
+            node.scroll({
+                top: node.scrollHeight,
+                behavior: "smooth",
+            });
+        scroll();
+
+        return { update: scroll };
+    };
+
     function emit(chat: string) {
         socket.emit("message", { type: "chat", name: username, value: chat });
     }
@@ -48,7 +60,9 @@
 </svelte:head>
 <RoomContainer>
     <div
-        class="flex w-full flex-col gap-4 overflow-x-hidden overflow-y-scroll scrollbar-hide before:absolute before:inset-0 before:-left-full before:z-10 before:shadow-[inset_50vw_-4rem_2rem_4rem_#111827] before:content-['']"
+        use:scrollToBottom={chats}
+        class="flex w-full flex-col gap-4 overflow-x-hidden overflow-y-scroll py-8 scrollbar-hide
+        before:pointer-events-none before:absolute before:inset-0 before:-left-full before:z-10 before:shadow-[inset_50vw_-4rem_1rem_3rem_#111827] before:content-['']"
     >
         {#each chats as chat}
             {#if chat.sender === username}
