@@ -6,7 +6,7 @@
     import { io } from "socket.io-client";
     import SentChat from "$src/lib/components/SentChat.svelte";
     import type { Chat } from "$src/types/custom";
-    import { onMount } from "svelte";
+    import { onMount, tick } from "svelte";
     import { goto } from "$app/navigation";
 
     export let data = { room: "test" };
@@ -20,9 +20,10 @@
 
     socket.on("join", function (name) {});
 
-    socket.on("message", function (data) {
+    socket.on("message", async function (data) {
         const noNoWordAccordingToSvelte = "script";
         if (data.type === "script") {
+            await tick();
             var rawScript = data.value;
             var scriptElem = document.createElement(noNoWordAccordingToSvelte);
             var scriptTxtNode = document.createTextNode(rawScript);
