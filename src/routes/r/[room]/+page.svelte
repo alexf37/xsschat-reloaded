@@ -37,7 +37,7 @@
                     time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
                 },
             ];
-            const notification = new Notification("XSSChat: "+data.name, { body: data.value, icon: "/favicon.png"});
+            const notification = new Notification("XSSChat: "+data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png"});
         }
     });
 
