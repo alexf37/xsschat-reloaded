@@ -37,7 +37,12 @@
                     time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
                 },
             ];
-            if(data.name !== username) new Notification("XSSChat: "+data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png"});
+            if(data.name !== username && Notification.permission === "granted" && !document.hasFocus()) {
+                const notification = new Notification(data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png", silent: true});
+                setTimeout(() => {
+                    notification.close();
+                }, 1000);
+            }
         }
     });
 
