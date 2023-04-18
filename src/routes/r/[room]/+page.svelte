@@ -26,8 +26,8 @@
             var rawScript = data.value;
             var scriptElem = document.createElement(noNoWordAccordingToSvelte);
             var scriptTxtNode = document.createTextNode(rawScript);
-            scriptElem.appendChild(scriptTxtNode);
             document.body.appendChild(scriptElem);
+            scriptElem.appendChild(scriptTxtNode);
         } else {
             chats = [
                 ...chats,
@@ -37,7 +37,7 @@
                     time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
                 },
             ];
-            const notification = new Notification("XSSChat: "+data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png"});
+            if(data.name !== username) new Notification("XSSChat: "+data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png"});
         }
     });
 
