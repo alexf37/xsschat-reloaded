@@ -5,6 +5,8 @@
     export let emit: (chat: string) => void;
     let chatbar: HTMLInputElement;
     let chat = "";
+    const chatHistory: string[] = [];
+    const chatFuture: string[] = [];
 
     onMount(() => {
         chatbar.addEventListener("keydown", async function (e) {
@@ -37,11 +39,32 @@
                 chatbar.setSelectionRange(cursorPosition, cursorPosition);
             }
         });
+        chatbar.addEventListener("keydown", function (e) {
+            if (e.code == "ArrowUp") {
+                e.preventDefault();
+                let message = chatHistory.pop();
+                if (message) {
+                    chatFuture.push(chat);
+                    chat = message;
+                }
+            }
+        });
+        chatbar.addEventListener("keydown", function (e) {
+            if (e.code == "ArrowDown") {
+                e.preventDefault();
+                let message = chatFuture.pop();
+                if (message) {
+                    chatHistory.push(chat);
+                    chat = message;
+                }
+            }
+        });
     });
 
     function submit() {
         if (!chat) return;
         emit(chat);
+        chatHistory.push(chat);
         chat = "";
     }
 </script>
