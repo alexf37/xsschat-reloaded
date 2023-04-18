@@ -48,7 +48,7 @@
 </svelte:head>
 <RoomContainer>
     <div
-        class="flex w-full flex-col gap-4 overflow-x-hidden overflow-y-scroll scrollbar-hide before:absolute before:inset-0 before:-inset-x-full before:z-10 before:overflow-hidden before:shadow-[inset_0rem_-4rem_2rem_4rem_#111827] before:content-['']"
+        class="flex w-full flex-col gap-4 overflow-x-hidden overflow-y-scroll scrollbar-hide before:absolute before:inset-0 before:-left-full before:z-10 before:shadow-[inset_50vw_-4rem_2rem_4rem_#000] before:content-['']"
     >
         {#each chats as chat}
             {#if chat.sender === username}
