@@ -7,8 +7,6 @@
     let chat = "";
 
     onMount(() => {
-        console.log("chatbar mounted");
-
         chatbar.addEventListener("keydown", async function (e) {
             if (e.code == "Tab") {
                 e.preventDefault();
@@ -28,26 +26,21 @@
                         return;
                     }
                 } catch (e) {
-                    console.log(e);
-                    chatbar.focus();
                     return;
                 }
                 let elem = `<${elemName}></${elemName}>`;
                 let newInput = message.slice(0, insertIndex) + elem + message.slice(cursorPosition);
                 chat = newInput;
-                console.log(cursorPosition);
                 cursorPosition =
                     (message.slice(0, insertIndex) + elem).length - `</${elemName}>`.length;
                 await tick();
-                chatbar.setSelectionRange(cursorPosition, cursorPosition, "backward");
-                console.log(cursorPosition);
+                chatbar.setSelectionRange(cursorPosition, cursorPosition);
             }
         });
     });
 
     function submit() {
         if (!chat) return;
-        console.log("submit: " + chat);
         emit(chat);
         chat = "";
     }
