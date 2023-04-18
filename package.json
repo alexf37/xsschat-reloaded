@@ -37,6 +37,7 @@
 		"@sveltejs/adapter-vercel": "^2.4.1",
 		"@sveltejs/package": "^2.0.2",
 		"socket.io": "^4.6.1",
-		"socket.io-client": "^4.6.1"
+		"socket.io-client": "^4.6.1",
+		"tailwind-scrollbar-hide": "^1.1.7"
 	}
 }
