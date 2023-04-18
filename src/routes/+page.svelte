@@ -10,6 +10,6 @@
     <title>XSSChat</title>
 </svelte:head>
 
-<main class="mx-auto flex h-screen w-11/12 flex-col items-center justify-center">
+<main class="mx-auto flex h-full w-11/12 flex-col items-center justify-center">
     <JoinForm />
 </main>
