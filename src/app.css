@@ -56,6 +56,7 @@ h1 {
 	background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #fb923c 120%);
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
+	font-weight: 900;
 }
 
 /* Grouping content
