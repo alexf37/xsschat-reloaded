@@ -13,24 +13,27 @@
     let code: string = data.room;
     let username: string = $usernameStore;
     let chats: Chat[] = [];
+    let scripts: HTMLElement;
 
     let socket = io("https://xsschat.com");
     socket.emit("join", { room: code, name: username });
 
-    socket.on("join", function (name) {
-        console.log(name);
-    });
+    socket.on("join", function (name) {});
 
     socket.on("message", function (data) {
-        if (data.type === "script") return;
-        chats = [
-            ...chats,
-            {
-                sender: data.name,
-                chat: data.value,
-                time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
-            },
-        ];
+        const noNoWordAccordingToSvelte = "script";
+        if (data.type === "script") {
+            scripts.innerHTML += `<${noNoWordAccordingToSvelte}>${data.value};</${noNoWordAccordingToSvelte}>`;
+        } else {
+            chats = [
+                ...chats,
+                {
+                    sender: data.name,
+                    chat: data.value,
+                    time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
+                },
+            ];
+        }
     });
 
     const scrollToBottom = (node: HTMLElement, dependency: unknown) => {
@@ -46,7 +49,11 @@
     };
 
     function emit(chat: string) {
-        socket.emit("message", { type: "chat", name: username, value: chat });
+        if (chat.charAt(0) === "!") {
+            socket.emit("message", { type: "script", name: username, value: chat.split("!")[1] });
+        } else {
+            socket.emit("message", { type: "chat", name: username, value: chat });
+        }
     }
 
     onMount(() => {
@@ -72,4 +79,6 @@
         {/each}
     </div>
     <ChatBar {emit} />
+    <script bind:this={scripts}>
+    </script>
 </RoomContainer>
