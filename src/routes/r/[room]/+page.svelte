@@ -50,8 +50,7 @@
     }
 
     onMount(() => {
-        if (!username) goto("/", { replaceState: true });
-        console.log(`username: ${username}`);
+        if (!username) goto(`/?join=${encodeURIComponent(code)}`, { replaceState: true });
     });
 </script>
 

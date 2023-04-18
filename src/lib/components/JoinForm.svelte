@@ -1,12 +1,14 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { usernameStore } from "$lib/stores/usernameStore";
+    import { page } from "$app/stores";
+    const url = $page.url;
 
-    let code: string = "";
+    let code: string = url.searchParams.get("join") ?? "";
     let username: string = "";
     function submit(e: Event) {
         usernameStore.set(username || "Anonymous");
-        goto(`/r/${code || "global"}`);
+        goto(`/r/${encodeURIComponent(code) || "global"}`);
     }
 </script>
 
