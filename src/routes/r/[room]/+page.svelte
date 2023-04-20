@@ -42,7 +42,7 @@
                 const notification = new Notification(data.name, { body: data.value.replace( /(<([^>]+)>)/ig, ''), icon: "/favicon.png", silent: true});
                 setTimeout(() => {
                     notification.close();
-                }, 1000);
+                }, 2500);
             }
         }
     });
