@@ -15,7 +15,12 @@
     let chats: Chat[] = [];
     let scripts: HTMLElement;
 
-    let socket = io("https://xsschat.com");
+    let socket = io("https://connect.xsschat.com", {
+        reconnection: true,
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+    });
     socket.emit("join", { room: code, name: username });
 
     socket.on("join", function (name) {});
@@ -77,7 +82,11 @@
 
     onMount(() => {
         if (!username) goto(`/?join=${encodeURIComponent(code)}`, { replaceState: true });
-        Notification.requestPermission();
+        if (typeof Notification !== "undefined" && Notification.permission !== "granted") {
+            Promise.resolve(Notification.requestPermission()).then(function (permission) {
+                console.log("Notification permission: ", permission);
+            });
+        }
     });
 </script>
 
