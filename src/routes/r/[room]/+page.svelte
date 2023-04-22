@@ -23,7 +23,27 @@
     });
     socket.emit("join", { room: code, name: username });
 
-    socket.on("join", function (name) {});
+    socket.on("user-connected", function (data) {
+        chats = [
+            ...chats,
+            {
+                sender: "XSSChat",
+                chat: data,
+                time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
+            },
+        ];
+    });
+
+    socket.on("user-disconnected", function (data) {
+        chats = [
+            ...chats,
+            {
+                sender: "XSSChat",
+                chat: data,
+                time: new Date().toLocaleTimeString().replace(/:\d\d /, " "),
+            },
+        ];
+    });
 
     socket.on("message", async function (data) {
         const noNoWordAccordingToSvelte = "script";
