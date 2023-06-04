@@ -3,4 +3,3 @@ export const load = ({ params }) => {
         room: params.room,
     }
 }
-export const prerender = true;
