@@ -22,10 +22,6 @@
         reconnectionDelayMax: 5000,
     });
     socket.emit("join", { room: code, name: username });
-    let scriptElem = document.createElement("script");
-    let scriptTxtNode = document.createTextNode(`var username = '${username}';`);
-    document.body.appendChild(scriptElem);
-    scriptElem.appendChild(scriptTxtNode);
 
     socket.on("user-connected", function (data) {
         chats = [
@@ -121,6 +117,10 @@
                 console.log("Notification permission: ", permission);
             });
         }
+        let scriptElem = document.createElement("script");
+        let scriptTxtNode = document.createTextNode(`var username = '${username}';`);
+        document.body.appendChild(scriptElem);
+        scriptElem.appendChild(scriptTxtNode);
     });
 </script>
 
