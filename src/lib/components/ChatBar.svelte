@@ -66,7 +66,6 @@
             //     chatbar.setSelectionRange(cursor + 1, cursor + 1);
             // }
         });
-        chatbar.addEventListener("keydown", function (e) {});
     });
 
     function submit() {
