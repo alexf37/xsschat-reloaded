@@ -13,7 +13,7 @@
 </script>
 
 <div
-    class="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-6 text-center shadow dark:border-gray-700 dark:bg-gray-800 md:p-8"
+    class="w-full max-w-sm rounded-lg border border-gray-700 bg-gray-800 p-6 text-center shadow md:p-8"
 >
     <form class="space-y-6" action="#">
         <h1 class="my-8 text-5xl font-black tracking-wide text-orange-500">XSSChat</h1>
@@ -22,7 +22,7 @@
             type="text"
             name="code"
             id="code"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
+            class="block w-full rounded-lg border border-gray-500 bg-gray-600 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Room Code"
             bind:value={code}
             required
