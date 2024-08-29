@@ -12,5 +12,5 @@
     <h3 class="flex flex-row items-center gap-1 text-xs text-gray-400">
         {@html `${chat.sender} · ${chat.time}`}
     </h3>
-    <p>{@html chat.chat}</p>
+    <p>{@html chat.chat.split('\n').join('<br>')}</p>
 </UIBox>

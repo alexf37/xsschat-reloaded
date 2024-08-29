@@ -75,6 +75,7 @@
             ];
             if (
                 data.name !== username &&
+                typeof Notification !== "undefined" &&
                 Notification.permission === "granted" &&
                 !document.hasFocus()
             ) {

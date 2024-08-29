@@ -3,10 +3,15 @@
     import UIBox from "./UIBox.svelte";
 
     export let emit: (chat: string) => void;
-    let chatbar: HTMLInputElement;
+    let chatbar: HTMLTextAreaElement;
     let chat = "";
     const chatHistory: string[] = [];
     const chatFuture: string[] = [];
+
+    let minRows = 1;
+
+    $: minHeight = `${1 + minRows * 1.2}em`;
+	$: maxHeight = `auto`;
 
     onMount(() => {
         chatbar.addEventListener("keydown", async function (e) {
@@ -56,6 +61,11 @@
                     chat = message;
                 }
             }
+            if (e.code == "Enter") {
+                if(e.shiftKey) return;
+                e.preventDefault();
+                submit();
+            }
             // if (closablePunctuation.some((p) => p[1] == e.key)) {
             //     e.preventDefault();
             //     let cursor = chatbar.selectionStart ?? 0;
@@ -69,6 +79,7 @@
     });
 
     function submit() {
+        chat = ( document.querySelector("#chat-box") as HTMLTextAreaElement)?.value ?? "";
         if (!chat) return;
         emit(chat);
         chatHistory.push(chat);
@@ -80,8 +91,12 @@
     <form class="flex flex-row items-center justify-between gap-4" on:submit={submit}>
         <label for="chat-box" class="sr-only">Chat Input</label>
         <!-- svelte-ignore a11y-autofocus -->
-        <input
-            type="text"
+        <div class="container">
+            <pre
+                aria-hidden="true"
+                style="min-height: {minHeight}; max-height: {maxHeight}"
+            >{chat + '\n'}</pre>
+        <textarea
             id="chat-box"
             bind:value={chat}
             bind:this={chatbar}
@@ -90,7 +105,9 @@
             autocomplete="off"
             autocorrect="off"
             autofocus
-        />
+            
+        ></textarea>
+        </div>
         <button
             type="submit"
             class="flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-medium text-white hover:bg-orange-500 focus:outline-none focus:ring focus:ring-orange-700"
@@ -99,3 +116,22 @@
         </button>
     </form>
 </UIBox>
+
+<style>
+	.container {
+		position: relative;
+	}
+	
+	pre, textarea {
+		line-height: 1.4;
+		overflow: hidden;
+	}
+	
+	textarea {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		resize: none;
+	}
+</style>
