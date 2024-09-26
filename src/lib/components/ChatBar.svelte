@@ -11,7 +11,7 @@
     let minRows = 1;
 
     $: minHeight = `${1 + minRows * 1.2}em`;
-	$: maxHeight = `auto`;
+    $: maxHeight = `auto`;
 
     onMount(() => {
         chatbar.addEventListener("keydown", async function (e) {
@@ -44,27 +44,55 @@
                 chatbar.setSelectionRange(cursorPosition, cursorPosition);
             }
         });
+        chatbar.addEventListener("paste", async function (e: ClipboardEvent) {
+            if (!navigator.clipboard) return;
+
+            const clipboardItems = e.clipboardData?.files;
+
+            // Make sure there is clipboard content and at least one file is pasted
+            if (clipboardItems && clipboardItems.length > 0) {
+                const file: File = clipboardItems[0];
+
+                // Check if the file is an image
+                if (file.type.startsWith("image/")) {
+                    const reader: FileReader = new FileReader();
+
+                    reader.onload = (e: ProgressEvent<FileReader>) => {
+                        // e.target.result represents the Base64 encoded image
+                        const base64String = e.target?.result;
+
+                        if (typeof base64String === "string") {
+                            console.log(base64String); // You can do something with the Base64 string
+                            chat = chat + `<img src="${base64String}" />`;
+                        }
+                    };
+
+                    // Read the file and trigger the onload event when the file is read
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
         chatbar.addEventListener("keydown", async function (e) {
-            if(e.shiftKey) {
+            if (e.shiftKey) {
                 if (e.code == "ArrowUp") {
-                e.preventDefault();
-                let message = chatHistory.pop();
-                if (message) {
-                    chatFuture.push(chat);
-                    chat = message;
+                    e.preventDefault();
+                    let message = chatHistory.pop();
+                    if (message) {
+                        chatFuture.push(chat);
+                        chat = message;
+                    }
                 }
-            }
-            if (e.code == "ArrowDown") {
-                e.preventDefault();
-                let message = chatFuture.pop();
-                if (message) {
-                    chatHistory.push(chat);
-                    chat = message;
+                if (e.code == "ArrowDown") {
+                    e.preventDefault();
+                    let message = chatFuture.pop();
+                    if (message) {
+                        chatHistory.push(chat);
+                        chat = message;
+                    }
                 }
-            }
             }
             if (e.code == "Enter") {
-                if(e.shiftKey) return;
+                if (e.shiftKey) return;
                 e.preventDefault();
                 submit();
             }
@@ -81,7 +109,7 @@
     });
 
     function submit() {
-        chat = ( document.querySelector("#chat-box") as HTMLTextAreaElement)?.value ?? "";
+        chat = (document.querySelector("#chat-box") as HTMLTextAreaElement)?.value ?? "";
         if (!chat) return;
         emit(chat);
         chatHistory.push(chat);
@@ -90,25 +118,25 @@
 </script>
 
 <UIBox class="z-50 mt-auto w-full">
-    <form class="flex max-w-full overflow-hidden flex-row items-center justify-between gap-4" on:submit={submit}>
+    <form
+        class="flex max-w-full overflow-hidden flex-row items-center justify-between gap-4"
+        on:submit={submit}
+    >
         <label for="chat-box" class="sr-only">Chat Input</label>
         <!-- svelte-ignore a11y-autofocus -->
         <div class="relative flex-1 max-w-full overflow-hidden">
-            <pre
-                aria-hidden="true"
-                style="min-height: {minHeight}; max-height: {maxHeight}"
-            >{chat + '\n'}</pre>
-        <textarea
-            id="chat-box"
-            bind:value={chat}
-            bind:this={chatbar}
-            class="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-gray-500 focus:ring-gray-400"
-            placeholder="XSSChat"
-            autocomplete="off"
-            autocorrect="off"
-            autofocus
-            
-        ></textarea>
+            <pre aria-hidden="true" style="min-height: {minHeight}; max-height: {maxHeight}">{chat +
+                    "\n"}</pre>
+            <textarea
+                id="chat-box"
+                bind:value={chat}
+                bind:this={chatbar}
+                class="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-gray-500 focus:ring-gray-400"
+                placeholder="XSSChat"
+                autocomplete="off"
+                autocorrect="off"
+                autofocus
+            ></textarea>
         </div>
         <button
             type="submit"
@@ -120,16 +148,16 @@
 </UIBox>
 
 <style>
-	
-	pre, textarea {
-		line-height: 1.4;
-		overflow: hidden;
-	}
-	
-	textarea {
-		position: absolute;
-		height: 100%;
-		top: 0;
-		resize: none;
-	}
+    pre,
+    textarea {
+        line-height: 1.4;
+        overflow: hidden;
+    }
+
+    textarea {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        resize: none;
+    }
 </style>
