@@ -6,7 +6,7 @@ interface ConvertOptions {
 
 export async function pngToWebpBase64(pngBase64: string): Promise<string> {
     const options = {
-      quality: 80,
+      quality: 50,
     };
   
     const webpBlob = await srcToWebP(pngBase64, options);
