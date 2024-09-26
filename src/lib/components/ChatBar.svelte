@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, tick } from "svelte";
     import UIBox from "./UIBox.svelte";
+    import { pngToWebpBase64 } from "$lib/squoosh";
 
     export let emit: (chat: string) => void;
     let chatbar: HTMLTextAreaElement;
@@ -57,13 +58,15 @@
                 if (file.type.startsWith("image/")) {
                     const reader: FileReader = new FileReader();
 
-                    reader.onload = (e: ProgressEvent<FileReader>) => {
+                    reader.onload = async (e: ProgressEvent<FileReader>) => {
                         // e.target.result represents the Base64 encoded image
                         const base64String = e.target?.result;
 
                         if (typeof base64String === "string") {
-                            console.log(base64String); // You can do something with the Base64 string
-                            chat = chat + `<img src="${base64String}" />`;
+                            console.log("Base64 length: " + base64String.length);
+                            const webpBase64 = await pngToWebpBase64(base64String);
+                            console.log("WebP base64 length: " + webpBase64.length);
+                            chat = chat + `<img src="${webpBase64}" />`;
                         }
                     };
 
