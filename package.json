@@ -37,7 +37,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-auto": "^3.2.5",
 		"@sveltejs/package": "^2.3.4",
 		"socket.io": "^4.7.5",
 		"socket.io-client": "^4.7.5",
