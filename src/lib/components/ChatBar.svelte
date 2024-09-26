@@ -67,7 +67,7 @@
                             const isSafari =
                                 /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
                                 navigator.userAgent.indexOf("CriOS") === -1;
-                            if (isSafari) {
+                            if (!isSafari) {
                                 const webpBase64 = await pngToWebpBase64(base64String);
                                 console.log("WebP base64 length: " + webpBase64.length);
                                 chat = chat + `<img src="${webpBase64}" />`;
