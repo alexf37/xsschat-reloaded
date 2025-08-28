@@ -15,7 +15,7 @@
     let chats: Chat[] = [];
     let scripts: HTMLElement;
 
-    let socket = io("https://connect.xsschat.com", {
+    let socket = io("https://xss.lvas.dev", {
         reconnection: true,
         reconnectionAttempts: Infinity,
         reconnectionDelay: 1000,
