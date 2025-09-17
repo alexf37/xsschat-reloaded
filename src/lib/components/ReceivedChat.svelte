@@ -10,7 +10,7 @@
     const splitChat = split
         .map((line, idx) => {
             if (line.startsWith("> ")) {
-                if (split[idx + 1].startsWith("> ")) {
+                if (split[idx + 1] && split[idx + 1].startsWith("> ")) {
                     return `<div class="text-gray-400">${line}</div>`;
                 } else {
                     return `<div class="text-gray-400 mb-1">${line}</div>`;
